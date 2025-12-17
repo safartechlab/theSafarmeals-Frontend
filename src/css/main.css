@@ -1,0 +1,46 @@
+:root{
+    --primry_color : #ff671e !important;
+    --secondry_color: #ffffff !important;
+}
+
+.header-bg{
+    background-color: var(--primry_color);
+    color: var(--secondry_color) !important;
+} 
+
+.drop-color{
+    color: var(--primry_color) !important;
+}
+
+.no-caret::after {
+  display: none !important;
+}
+
+.user-toggle {
+  background-color: transparent !important; /* or set exact navbar color */
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0; /* optional: remove button spacing */
+}
+
+.dropdown-item:hover {
+  background-color: #ffffff !important;
+  color: #000 !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #ff6a00 !important;
+  color: #fff !important;
+}
+
+.button-color{
+  background-color: var(--primry_color) !important ;
+  color: var(--secondry_color) !important;
+}
+
+.button-color:hover{
+  background-color: #ffbe9f !important;
+  color: #000 !important;
+  font-weight: 500;
+}
