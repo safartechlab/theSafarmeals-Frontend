@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Container, Row, Col } from "react-bootstrap";
 import { FaStoreAlt, FaRegClock } from "react-icons/fa";
 
@@ -37,3 +38,12 @@ const Shopfooter = () => {
 };
 
 export default Shopfooter;
+=======
+const Shopfooter = () =>{
+    return(
+        <h1>ShopFooter</h1>
+    )
+}
+
+export default Shopfooter
+>>>>>>> 436f56ce657c5a46c478a2ba2ebdc09e6312ef8b

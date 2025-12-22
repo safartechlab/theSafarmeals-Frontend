@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Route, Routes } from "react-router-dom";
 import Shophome from "../pages/ShopOwner/ShopHome/Shophome";
 import Shoplayout from "../layout/Shoplayout";
@@ -25,3 +26,23 @@ const Shoprouter = () => {
 };
 
 export default Shoprouter;
+=======
+import { Route ,Routes } from "react-router-dom"
+import Shophome from "../pages/ShopOwner/ShopHome/Shophome"
+import Shoplayout from "../layout/Shoplayout"
+
+const Shoprouter = () =>{
+    return(
+        <>
+            <Routes>
+                <Route path="/ShopOwner" element={<Shoplayout/>}>
+                    <Route index element={<Shophome/>} />
+                </Route>
+            </Routes>
+        </>
+    )
+
+}
+
+export default Shoprouter
+>>>>>>> 436f56ce657c5a46c478a2ba2ebdc09e6312ef8b
