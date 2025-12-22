@@ -11,7 +11,7 @@ const ToastProvider = ({ children }) => {
   useEffect(() => {
     if (toaststate.message && toaststate.type) {
       toast[toaststate.type](toaststate.message, {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

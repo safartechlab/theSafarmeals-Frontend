@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Shophome from "../pages/ShopOwner/ShopHome/Shophome";
 import Shoplayout from "../layout/Shoplayout";
-import Dashboard from "../pages/ShopOwner/Shoppages/Dashboard";
-import Orders from "../pages/ShopOwner/Shoppages/Orders";
-import Shops from "../pages/ShopOwner/Shoppages/Shops";
+import Dashboard from "../pages/ShopOwner/Shoppages/Dashboard/Dashboard";
+import Orders from "../pages/ShopOwner/Shoppages/Orders/Orders";
+import Shops from "../pages/ShopOwner/Shoppages/Myshop/Shops";
 
 const Shoprouter = () => {
   return (
