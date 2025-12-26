@@ -1,81 +1,101 @@
+/* ROOT */
 .poster {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 60px 80px;
-  background: linear-gradient(20deg, #ff671e, #ffbe9f);
-  color: white;
+  padding: 70px 90px;
+  background: linear-gradient(135deg, #ff6a1f, #ffb38a);
+  color: #fff;
   overflow: hidden;
+  gap: 40px;
 }
 
 /* LEFT */
 .poster-left {
-  max-width: 50%;
+  max-width: 520px;
 }
 
 .poster-left h1 {
-  font-size: 3rem;
-  line-height: 1.2;
+  font-size: 3.1rem;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .poster-left h1 span {
-  color: #ffcc00;
+  color: #ffe082;
 }
 
 .poster-left p {
-  margin: 20px 0;
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-/* SEARCH */
-.search-box {
-  display: flex;
-  margin: 25px 0;
-  background: white;
-  border-radius: 50px;
-  overflow: hidden;
+  margin: 22px 0 28px;
+  font-size: 1.05rem;
+  opacity: 0.92;
   max-width: 420px;
 }
 
-.search-box input {
+/* SEARCH */
+.poster-search {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px 18px;
+  gap: 10px;
+  max-width: 420px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+.poster-search input {
   flex: 1;
   border: none;
-  padding: 14px 18px;
   outline: none;
+  font-size: 15px;
 }
 
-.search-box button {
-  border: none;
-  background: #ffb703;
-  padding: 0 25px;
-  font-weight: bold;
-  cursor: pointer;
+.search-icon {
+  font-size: 18px;
+  opacity: 0.6;
 }
 
-/* BUTTONS */
+/* ACTION BUTTONS */
 .poster-actions {
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 14px;
+  margin-top: 26px;
 }
 
+/* PRIMARY */
 .primary-btn {
-  background: #ffb703;
+  padding: 14px 30px;
+  border-radius: 16px;
+  color: black;
   border: none;
-  padding: 14px 28px;
-  border-radius: 30px;
-  font-weight: bold;
+  background: linear-gradient(135deg, #ffb703, #ffd166);
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 12px 26px rgba(255,183,3,0.45);
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
+.primary-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* SECONDARY */
 .secondary-btn {
+  padding: 14px 28px;
+  border-radius: 16px;
+  border: 2px solid rgba(255,255,255,0.9);
   background: transparent;
-  border: 2px solid white;
-  padding: 12px 26px;
-  border-radius: 30px;
-  color: white;
-  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+  background: #fff;
+  color: #ff6a1f;
 }
 
 /* RIGHT IMAGE */
@@ -83,104 +103,77 @@
   position: relative;
 }
 
-.image-circle {
-  width: 320px;
-  height: 320px;
+.image-wrapper {
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
-  background: #ffb703;
+  background: rgba(255,255,255,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   animation: float 4s ease-in-out infinite;
 }
 
-.image-circle img {
-  width: 85%;
+.image-wrapper img {
+  width: 82%;
+  height: 82%;
   border-radius: 50%;
+  object-fit: cover;
 }
 
-/* ANIMATION */
+/* FLOAT */
 @keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
 }
 
+/* TABLET */
 @media (max-width: 992px) {
   .poster {
-    padding: 40px 50px;
-  }
-
-  .poster-left {
-    max-width: 55%;
+    padding: 50px 50px;
   }
 
   .poster-left h1 {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
   }
 
-  .image-circle {
-    width: 260px;
-    height: 260px;
+  .image-wrapper {
+    width: 280px;
+    height: 280px;
   }
 }
 
-/* ========================= */
-/* 📱 MOBILE (≤ 768px) */
-/* ========================= */
+/* MOBILE */
 @media (max-width: 768px) {
   .poster {
     flex-direction: column-reverse;
     text-align: center;
-    padding: 40px 25px;
+    padding: 45px 25px;
   }
 
   .poster-left {
     max-width: 100%;
   }
 
-  .poster-left h1 {
-    font-size: 2.1rem;
-  }
-
-  .poster-left p {
-    font-size: 1rem;
-  }
-
-  .search-box {
-    margin: 20px auto;
+  .poster-search {
+    margin: auto;
   }
 
   .poster-actions {
     justify-content: center;
+    flex-direction: column;
   }
 
-  .image-circle {
-    width: 220px;
-    height: 220px;
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .image-wrapper {
+    width: 230px;
+    height: 230px;
     margin-bottom: 20px;
-  }
-}
-
-/* ========================= */
-/* 📱 SMALL MOBILE (≤ 480px) */
-/* ========================= */
-@media (max-width: 480px) {
-  .poster-left h1 {
-    font-size: 1.8rem;
-  }
-
-  .search-box input {
-    padding: 12px;
-  }
-
-  .search-box button {
-    padding: 0 18px;
   }
 }

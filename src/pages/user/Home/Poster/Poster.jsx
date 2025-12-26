@@ -1,10 +1,11 @@
 import React from "react";
 import "./poster.css";
+import { Link } from "react-router-dom";
 
 function Poster() {
   return (
     <section className="poster">
-      {/* LEFT CONTENT */}
+      {/* LEFT */}
       <div className="poster-left">
         <h1>
           Hungry? <br />
@@ -12,27 +13,30 @@ function Poster() {
         </h1>
 
         <p>
-          Order food from your favorite restaurants and get it delivered
-          hot & fresh at your doorstep.
+          Order food from your favorite restaurants and get it delivered hot &
+          fresh at your doorstep.
         </p>
 
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search for food or restaurants"
-          />
-          <button>Search</button>
+        {/* SEARCH */}
+        <div className="poster-search">
+          <span className="search-icon">🔍</span>
+          <input placeholder="Search dishes or restaurants" />
         </div>
 
+        {/* ACTIONS */}
         <div className="poster-actions">
-          <button className="primary-btn">Order Now</button>
-          <button className="secondary-btn">View Menu</button>
+          <Link to="/menu" className="primary-btn">
+            Order Now
+          </Link>
+          <Link to="/menu" className="secondary-btn">
+            View Menu
+          </Link>
         </div>
       </div>
 
-      {/* RIGHT IMAGE */}
+      {/* RIGHT */}
       <div className="poster-right">
-        <div className="image-circle">
+        <div className="image-wrapper">
           <img
             src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
             alt="Food"
@@ -44,5 +48,3 @@ function Poster() {
 }
 
 export default Poster;
-
-
