@@ -109,3 +109,17 @@ export const deleteitem = (itemId) => async (dispatch, getState) => {
     dispatch(setloading(false));
   }
 };
+
+export const getAllItems = () => async (dispatch) => {
+  try {
+    dispatch(setloading(true));
+
+    const res = await axios.get(`${Baseurl}item/getAllItems`);
+
+    dispatch(setitem(res.data.data));
+  } catch (error) {
+    console.error(error);
+  } finally {
+    dispatch(setloading(false));
+  }
+};

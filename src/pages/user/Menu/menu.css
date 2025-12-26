@@ -1,0 +1,256 @@
+/* ================= ROOT ================= */
+.menu {
+  min-height: 100vh;
+  background: linear-gradient(20deg, #ff671e, #ffbe9f);
+  font-family: "Inter", sans-serif;
+}
+
+/* ================= HERO ================= */
+.menu-hero {
+  padding: 60px 20px 40px;
+  text-align: center;
+  color: #fff;
+}
+
+.menu-hero h1 {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+/* ================= HERO SEARCH ================= */
+.hero-search {
+  max-width: 640px;
+  margin: auto;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* SEARCH BOX */
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  transition: 0.25s;
+}
+
+.search-box:focus-within {
+  border-color: #ff6a1f;
+  box-shadow: 0 10px 28px rgba(255,106,31,0.25);
+}
+
+.search-icon {
+  font-size: 18px;
+  margin-right: 8px;
+  opacity: 0.6;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+}
+
+.clear-btn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+/* ================= FOOD FILTER ================= */
+.food-filter {
+  display: flex;
+  gap: 10px;
+}
+
+.food-filter input {
+  display: none;
+}
+
+.food-filter label {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid #ddd;
+  background: #fff;
+  color: #555;
+  transition: 0.25s;
+}
+
+.food-filter label:hover {
+  border-color: #ff6a1f;
+  color: #ff6a1f;
+}
+
+.food-filter label:has(input:checked) {
+  background: #ff6a1f;
+  color: #fff;
+  border-color: #ff6a1f;
+}
+
+.food-filter label:nth-child(2):has(input:checked) {
+  background: #1fa64a;
+  border-color: #1fa64a;
+}
+
+.food-filter label:nth-child(3):has(input:checked) {
+  background: #c92c1f;
+  border-color: #c92c1f;
+}
+
+/* ================= CATEGORY CHIPS ================= */
+.category-chips {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.category-chips button {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.category-chips button.active {
+  background: #ff6a1f;
+  color: #fff;
+  border-color: #ff6a1f;
+}
+
+/* ================= WRAPPER ================= */
+.menu-wrapper {
+  max-width: 1300px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ================= GRID ================= */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* ================= FOOD CARD ================= */
+.food-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+}
+
+/* IMAGE */
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* INFO */
+.food-info {
+  padding: 16px;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.food-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.shop {
+  font-size: 13px;
+  color: #777;
+  margin: 6px 0 12px;
+}
+
+/* BOTTOM */
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff6a1f;
+}
+
+.bottom-row button {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #ff6a1f;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ================= FOOD DOT ================= */
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.dot.veg { background: #04913f; }
+.dot.non-veg { background: #b91b09; }
+
+/* ================= SKELETON ================= */
+.skeleton-card {
+  height: 300px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -300px; }
+  100% { background-position: 300px; }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .menu-hero h1 {
+    font-size: 28px;
+  }
+
+  .hero-search {
+    flex-direction: column;
+  }
+
+  .food-filter {
+    justify-content: center;
+  }
+}

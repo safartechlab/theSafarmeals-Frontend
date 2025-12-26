@@ -1,3 +1,7 @@
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

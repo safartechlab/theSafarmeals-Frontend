@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FiPlusCircle } from "react-icons/fi";
+import { BiFoodTag } from "react-icons/bi";
 
 import { showToast } from "../../../../store/slice/toast_slice";
 import {
@@ -17,6 +18,7 @@ const Item = ({ shop }) => {
   const [showModal, setShowModal] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editItem, setEditItem] = useState(null);
+
   const categories = [
     "Snacks",
     "Gujrati Thali",
@@ -44,11 +46,8 @@ const Item = ({ shop }) => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
 
-  /* ================= FETCH ITEMS ================= */
   useEffect(() => {
-    if (shop?._id) {
-      dispatch(getitems(shop._id));
-    }
+    if (shop?._id) dispatch(getitems(shop._id));
   }, [shop?._id, dispatch]);
 
   useEffect(() => {
@@ -56,7 +55,6 @@ const Item = ({ shop }) => {
       preview && preview.startsWith("blob:") && URL.revokeObjectURL(preview);
   }, [preview]);
 
-  /* ================= HANDLERS ================= */
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -76,40 +74,40 @@ const Item = ({ shop }) => {
     setShowModal(false);
   };
 
-  /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate fields
+    if (!form.itemname || !form.price || !form.category || !form.foodtype) {
+      dispatch(showToast({ message: "Please fill all fields", type: "error" }));
+      return;
+    }
+
     const formData = new FormData();
-    Object.keys(form).forEach((key) => formData.append(key, form[key]));
+    formData.append("itemname", form.itemname);
+    formData.append("price", Number(form.price)); // ensure number
+    formData.append("category", form.category);
+    formData.append("foodtype", form.foodtype);
+
+    // Only append image if selected
+    if (image) {
+      formData.append("foodimage", image);
+    } else if (!isEdit) {
+      // If adding new item, image is required
+      dispatch(
+        showToast({ message: "Please upload item image", type: "error" })
+      );
+      return;
+    }
 
     try {
       if (isEdit) {
-        if (image) {
-          formData.append("foodimage", image); // ✅ only once
-        }
-
-        await dispatch(
-          updateitem({
-            itemId: editItem._id,
-            data: formData,
-          })
-        );
-
+        await dispatch(updateitem({ itemId: editItem._id, data: formData }));
         dispatch(
           showToast({ message: "Item updated successfully", type: "success" })
         );
       } else {
-        if (!image) {
-          dispatch(
-            showToast({ message: "Please upload item image", type: "error" })
-          );
-          return;
-        }
-
-        formData.append("foodimage", image); // ✅ ONLY HERE
         await dispatch(additem({ shopId: shop._id, data: formData }));
-
         dispatch(
           showToast({ message: "Item added successfully", type: "success" })
         );
@@ -117,29 +115,21 @@ const Item = ({ shop }) => {
 
       resetForm();
     } catch (error) {
-      dispatch(
-        showToast({
-          message: isEdit ? "Failed to update item" : "Failed to add item",
-          type: "error",
-        })
-      );
+      console.error(error); // log the backend error for debugging
+      dispatch(showToast({ message: "Action failed", type: "error" }));
     }
   };
 
-  /* ================= RENDER ================= */
   return (
     <div>
-      {/* ADD ITEM BUTTON */}
       <button
         style={styles.addButton}
         disabled={!shop}
         onClick={() => setShowModal(true)}
       >
-        <FiPlusCircle size={22} />
-        Add Item
+        <FiPlusCircle size={22} /> Add Item
       </button>
 
-      {/* MODAL */}
       {showModal && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContainer}>
@@ -175,8 +165,8 @@ const Item = ({ shop }) => {
                 required
               >
                 <option value="">Select Category</option>
-                {categories.map((cat, index) => (
-                  <option key={index} value={cat}>
+                {categories.map((cat, i) => (
+                  <option key={i} value={cat}>
                     {cat}
                   </option>
                 ))}
@@ -205,7 +195,7 @@ const Item = ({ shop }) => {
 
               <div style={{ display: "flex", gap: "10px" }}>
                 <button type="submit" style={styles.button}>
-                  {isEdit ? "Update Item" : "Add Item"}
+                  {isEdit ? "Update" : "Add"}
                 </button>
                 <button
                   type="button"
@@ -220,74 +210,55 @@ const Item = ({ shop }) => {
         </div>
       )}
 
-      {/* ITEM LIST */}
-      {items.length === 0 ? (
-        <p style={{ marginTop: "20px" }}>No items added yet</p>
-      ) : (
-        <div style={styles.list}>
-          {items.map((item) => (
-            <div
-              key={item._id}
-              style={styles.listRow}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#fff6f1")
-              }
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#fff")}
-            >
-              {/* IMAGE */}
-              <img
-                src={item.foodimage}
-                alt={item.itemname}
-                style={styles.listImage}
-              />
+      <div style={styles.list}>
+        {items.map((item) => (
+          <div key={item._id} style={styles.listRow}>
+            <img
+              src={item.foodimage}
+              alt={item.itemname}
+              style={styles.listImage}
+            />
 
-              {/* DETAILS */}
-              <div style={styles.listInfo}>
-                <h4 style={{ margin: 0 }}>{item.itemname}</h4>
-                <p style={styles.meta}>
-                  {item.category} • {item.foodtype}
-                </p>
-              </div>
+            <div style={styles.listInfo}>
+              <h4 style={styles.itemTitle}>{item.itemname}</h4>
+              <p style={styles.meta}>{item.category}</p>
 
-              {/* PRICE */}
-              <div style={styles.price}>₹{item.price}</div>
-
-              {/* ACTIONS */}
-              <div style={styles.actions}>
-                <button
-                  style={styles.editBtn}
-                  onClick={() => {
-                    setEditItem(item);
-                    setForm({
-                      itemname: item.itemname,
-                      price: item.price,
-                      category: item.category,
-                      foodtype: item.foodtype,
-                    });
-                    setPreview(item.foodimage);
-                    setIsEdit(true);
-                    setShowModal(true);
+              <div style={styles.foodBadge}>
+                <BiFoodTag
+                  style={{
+                    color: item.foodtype === "veg" ? "#2ecc71" : "#e74c3c",
                   }}
-                >
-                  Edit
-                </button>
-
-                <button
-                  style={{ ...styles.editBtn, background: "#d9534f" }}
-                  onClick={() => {
-                    dispatch(deleteitem(item._id));
-                    dispatch(
-                      showToast({ message: "Item deleted", type: "error" })
-                    );
-                  }}
-                >
-                  Delete
-                </button>
+                />
+                <span>{item.foodtype}</span>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+
+            <div style={styles.price}>₹{item.price}</div>
+
+            <div style={styles.actions}>
+              <button
+                style={styles.editBtn}
+                onClick={() => {
+                  setEditItem(item);
+                  setForm(item);
+                  setPreview(item.foodimage);
+                  setIsEdit(true);
+                  setShowModal(true);
+                }}
+              >
+                Edit
+              </button>
+
+              <button
+                style={{ ...styles.editBtn, background: "#d9534f" }}
+                onClick={() => dispatch(deleteitem(item._id))}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -297,26 +268,21 @@ export default Item;
 /* ================= STYLES ================= */
 const styles = {
   addButton: {
-    background: "linear-gradient(135deg, #FF7F50, #FF4500)",
+    background: "linear-gradient(135deg,#FF7F50,#FF4500)",
     color: "#fff",
     border: "none",
     borderRadius: "14px",
     padding: "12px 22px",
     fontSize: "17px",
     fontWeight: "600",
-    cursor: "pointer",
     display: "flex",
     alignItems: "center",
     gap: "8px",
+    cursor: "pointer",
     marginBottom: "18px",
   },
 
-  list: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-    marginTop: "15px",
-  },
+  list: { display: "flex", flexDirection: "column", gap: "12px" },
 
   listRow: {
     display: "flex",
@@ -326,7 +292,6 @@ const styles = {
     padding: "12px",
     borderRadius: "14px",
     boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-    transition: "background 0.2s ease",
   },
 
   listImage: {
@@ -338,12 +303,41 @@ const styles = {
 
   listInfo: {
     flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: "4px",
+  },
+
+  itemTitle: {
+    margin: 0,
+    fontSize: "16px",
+    fontWeight: "600",
   },
 
   meta: {
-    margin: "4px 0 0",
-    fontSize: "13px",
-    color: "#777",
+    fontSize: "12px",
+    color: "#888",
+    textTransform: "capitalize",
+  },
+  foodBadge: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "6px",
+    fontSize: "12px",
+    fontWeight: "600",
+    padding: "3px 8px",
+    borderRadius: "8px",
+    background: "#f5f5f5",
+    width: "fit-content",
+    textTransform: "capitalize",
+  },
+
+  food: {
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    fontSize: "14px",
+    fontWeight: "500",
   },
 
   price: {
@@ -354,10 +348,7 @@ const styles = {
     textAlign: "right",
   },
 
-  actions: {
-    display: "flex",
-    gap: "8px",
-  },
+  actions: { display: "flex", gap: "8px" },
 
   editBtn: {
     background: "#ff671e",
@@ -366,7 +357,6 @@ const styles = {
     padding: "8px 14px",
     borderRadius: "10px",
     cursor: "pointer",
-    fontSize: "14px",
     fontWeight: "600",
   },
 
@@ -470,4 +460,3 @@ const styles = {
     objectFit: "cover",
   },
 };
-

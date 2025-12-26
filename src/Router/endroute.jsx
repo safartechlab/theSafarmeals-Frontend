@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import Endlayout from "../layout/endlayout"
-import Home from "../pages/user/Home/Home"
+import Home from "../pages/user/Home/Homepage/Home"
 import Menu from "../pages/user/Menu/Menu"
 import Aboutus from "../pages/user/About us/Aboutus"
 import Contactus from "../pages/user/Contact us/Contactus"

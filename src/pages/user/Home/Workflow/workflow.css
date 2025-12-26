@@ -1,0 +1,50 @@
+.how-it-works {
+  padding: 80px 8%;
+  background-color: #fff;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.how-it-works .subtitle {
+  color: #666;
+  margin-bottom: 50px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.step-card {
+  padding: 30px 20px;
+  border-radius: 16px;
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.step-card .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.step-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #ff7a18;
+}
+
+.step-card p {
+  font-size: 14px;
+  color: #555;
+}
